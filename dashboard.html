@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Add Map</title>
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+<h3>Mapa de Cargadores</h3>
+<div id="map"></div>
+
+<div class="divider d-flex align-items-center my-2">
+</div>
+
+<div id="adminPanel">
+    <form action="">
+        <input type="number" id="latitud" placeholder="Latitud" required>
+        <input type="number" id="longitud" placeholder="Longitud" required>
+    </form>
+    <button onclick="anadirMarker()">Anadir Cargador</button>
+</div>
+
+<div id="tecnicopanel">
+
+</div>
+
+<script>
+    let map;
+
+    async function initMap() {
+        const position = { lat: 40.41675150, lng: -3.70383220};
+
+        const { Map } = await google.maps.importLibrary("maps");
+        const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+
+        map = new Map(document.getElementById("map"), {
+            zoom: 12,
+            center: position,
+            mapId: "36a6afaf4c085259"
+        });
+    }
+
+    window.initMap = initMap;
+
+    function anadirMarker() {
+        const marker = new google.maps.marker.AdvancedMarkerElement({
+            map: map,
+            position: { lat: document.getElementById(latitud).innerText, lng: document.getElementById(longitud).innerText },
+            content: document.createElement("div"),
+        });
+        marker.content.innerHTML = "<h1>Cargador</h1>";
+    }
+
+</script>
+
+<script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh0OzxbqU3phTGxLHOMRQT9YeIKsmedds&callback=initMap&libraries=maps,marker"
+        async
+        defer
+></script>
+<script src="js/roles.js"></script>
+</body>
+</html>
